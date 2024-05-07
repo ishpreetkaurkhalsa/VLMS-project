@@ -23,3 +23,6 @@ body{
   background-color: black;
   color:white;
 }
+.scroll-smooth {
+  scroll-behavior: smooth;
+}
