@@ -25,7 +25,8 @@ const Navbar = () => {
     return (
         <div className='absolute w-full p-4 flex item-center justify-between z-50'>
             <Link to={'/'}>
-                <h1 className='uppercase text-red-600 font-nsans-bold cursor-pointer text-5xl'>netflix</h1>
+                {/* <h1 className='uppercase text-[#fca312] font-nsans-bold cursor-pointer text-5xl'>netflix</h1> */}
+                <img src="/logo_white.png" className='w-[320px] ml-[-10px]'/>
             </Link>
 
             {
@@ -34,7 +35,7 @@ const Navbar = () => {
                         <Link to='/profile'>
                             <button className='capitalize pr-4'>profile</button>
                         </Link>
-                        <button onClick={handleLogout} className='capitalize bg-red-600 px-6 py-2 rounded cursor-pointer'>logout</button>
+                        <button onClick={handleLogout} className='capitalize bg-[#fca312] px-6 py-2 rounded cursor-pointer'>logout</button>
                     </div>
                 ) : (
                     <div>
@@ -42,7 +43,7 @@ const Navbar = () => {
                             <button className='capitalize pr-4'>login</button>
                         </Link>
                         <Link to='/signup'>
-                            <button className='capitalize bg-red-600 px-6 py-2 rounded cursor-pointer'>signup</button>
+                            <button className='capitalize bg-[#fca312] px-6 py-2 rounded cursor-pointer'>signup</button>
                         </Link>
                     </div>
                 )
