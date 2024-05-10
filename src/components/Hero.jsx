@@ -16,7 +16,27 @@ const Hero = () => {
         if(!str) return "";
         return str.length>length?str.slice(0,length)+"...":str;
     }
+    const playTrailer = async () => {
+        // Fetch trailer using YouTube Data API
+        try {
+            const response = await fetch(
+                `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(
+                    `${title} trailer`
+                )}&key=AIzaSyCM0JY_sLy5kfD5z0C4n1YMf3skSIx_vro&type=video&videoEmbeddable=true`
+            );
+            const data = await response.json();
+            const videoId = data.items[0]?.id.videoId;
 
+            // Open trailer in a new window
+            if (videoId) {
+                window.open(`https://www.youtube.com/watch?v=${videoId}`);
+            } else {
+                console.error('No trailer found');
+            }
+        } catch (error) {
+            console.error('Error fetching trailer:', error);
+        }
+    };
     if (!movie)
         return (
             <>
@@ -37,7 +57,7 @@ const Hero = () => {
                 <div className=' absolute w-full top-[20%] lg:top-[35%] p-4 md:p-8'>
                     <h1 className='text-3xl md:text-6xl font-nsans-bold'>{title}</h1>
                     <div className='mt-8 mb-4'>
-                        <button className='capitalize border bg-[#fca312] text-black py-2 px-6'>play</button>
+                        <button onClick={playTrailer} className='capitalize border bg-[#fca312] text-black py-2 px-6'>play</button>
                         <button className='capitalize border border-gray-300 py-2 px-5 ml-4'>watch later</button>
                     </div>
                     <p className='text-gray-400 text-sm'>{release_date}</p>
