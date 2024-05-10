@@ -1,8 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import endpoints, { createImageUrl } from '../services/movieServices';
 import axios from 'axios';
+import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
+import { UserAuth } from '../context/AuthContext';
+import { db } from '../services/firebase';
 
 const Hero = () => {
+    const [like, setLike] = useState(false);
+    const { user } = UserAuth();
+
+    const markFavShow = async () => {
+        const userEmail = user?.email;
+        if (userEmail) {
+            const userDoc = doc(db, 'users', userEmail);
+            setLike(!like);
+            await updateDoc(userDoc, {
+                favShows: arrayUnion({ ...movie }),
+            });
+        } else {
+            alert('Login to save a movie');
+        }
+    };
+
     const [movie, setMovie] = useState({});
     useEffect(() => {
         axios.get(endpoints.popular).then((response) => {
@@ -58,7 +77,7 @@ const Hero = () => {
                     <h1 className='text-3xl md:text-6xl font-nsans-bold'>{title}</h1>
                     <div className='mt-8 mb-4'>
                         <button onClick={playTrailer} className='capitalize border bg-[#fca312] text-black py-2 px-6'>play</button>
-                        <button className='capitalize border border-gray-300 py-2 px-5 ml-4'>watch later</button>
+                        <button onClick={markFavShow} className='capitalize border border-gray-300 py-2 px-5 ml-4 focus:bg-gray-300 focus:text-black'>Favorite</button>
                     </div>
                     <p className='text-gray-400 text-sm'>{release_date}</p>
                     <p className='w-full md:max-w-[70%] lg:max-w-[50%] xl:max-w-[35%] text-gray-200'>{truncate(overview,165)}</p>
