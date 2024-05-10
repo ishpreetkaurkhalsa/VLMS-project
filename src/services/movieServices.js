@@ -1,4 +1,4 @@
-const key=import.meta.env.VITE_TMDB_KEY;
+const key="cc71602f868743c9f0afc8e6e0db977b";
 const baseUrl="https://api.themoviedb.org/3"
 const endpoints={
     popular:`${baseUrl}/movie/popular?api_key=${key}`,
