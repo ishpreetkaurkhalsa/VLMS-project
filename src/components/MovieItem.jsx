@@ -92,7 +92,7 @@ const MovieItem = ({ movie }) => {
                             <h2 className=" text-xl font-semibold">{movie.title}</h2>
                             {showCloseButton && (
                                 <IoIosClose
-                                    size={20}
+                                    size={40}
                                     className="text-gray-300 cursor-pointer"
                                     onClick={closeOverview}
                                 />
